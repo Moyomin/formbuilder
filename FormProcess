@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>12 Step Group</h2>
+Which Step: <input type="text" size= 3 id=stepNum>
+On time: <input type="checkbox" id="myCheck">
+Disengaged:<input type="checkbox" id="myCheck2">
+<input type="text" id=diseText>
+Anxious:<input type="checkbox" id="myCheck3">
+<input type="text" id=diseAnx>
+
+<button onclick="check()">Generate Note</button>
+
+
+<p id="demo"></p>
+<p id="demo2"></p>
+
+<script>
+
+function check() {
+     
+    var firstcheck = 0;
+    var note = "";
+     var x =        document.getElementById("myCheck").checked;
+
+    var y =
+document.getElementById("myCheck2").checked;
+    
+    var z =
+document.getElementById("myCheck3").checked;
+
+document.getElementById("demo").innerHTML = " " + x + " " + y + " " + z;
+
+    if( x == true)
+     {
+      note = "Client arrived to group on time and presented as ";
+     }
+    if( x == false)
+    {
+      note = "Client arrived to group late and presented as "
+    }
+     
+    if( y == true)
+    {
+     firstcheck ++;
+     
+     note = note + "disengaged as evidenced by " + document.getElementById("diseText").value + ".";
+    }
+    
+    if( z == true)
+    {
+     if(firstcheck == 0)
+      {
+       note = note + "anxious as evidenced by " + document.getElementById("diseAnx").value + ".";
+      }
+     if(firstcheck != 0)
+      {
+       note = note +" Client appeared to be anxious as evidenced by " + document.getElementById("diseAnx").value + ".";
+      }
+    } 
+        note = note + "Client is to continue investigating Step " + document.getElementById("stepNum").value + " in relation to his individual recovery process.";
+        
+        document.getElementById("demo2").innerHTML = note;
+}
+
+</script>
+
+</body>
+</html> 
