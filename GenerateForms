@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+Enter Number of Clients
+<input type="number" id= "dog">
+<button onclick="myFunction()">Try it</button>
+
+<script>
+var clientnum;
+function myFunction() {
+    var x =  document.getElementById("dog").value;
+    clientnum = Number(x);
+for(count=1; count<clientnum+1; count++)
+ {
+  
+  document.write("<h2> Client " + count + "</h2>");
+  document.write('Lable1');
+  document.write('<input type="text"   name="one+count">');
+  document.write('Lable2');
+  document.write('<input type="text" name="two+count" id=q>');
+
+  document.write('Lable3'); 
+  document.write('<input type="text" name="three+count">');
+
+  document.write('Lable4');
+  document.write('<input type="text" name="four+count">');
+
+}
+  document.write('<button onclick="myFunction2()">Generate</button>');
+  document.write('<p id="demo"></p>');
+}
+</script>
+</body>
+</html>
