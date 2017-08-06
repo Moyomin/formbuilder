@@ -29,8 +29,10 @@ function renderNote() {
       } else {
         var engageText = "Client was not engaged, as evidenced by "
       }
+      var engageEvidence = "engageEvidence-" + key
+      var engageEvidenceText = document.getElementById(engageEvidence).value
       document.write("<br>")
-        document.write(onTimeText+engageText)
+        document.write(onTimeText+engageText+engageEvidenceText)
     }
   }
 
@@ -47,7 +49,7 @@ function generateForms(){
      var engageCheckID = "engageCheck-" + key
      diseHTML = "<input id='" + engageEvidence + "' name=" + engageEvidence + ">"
      ontimeHTML = "On time? <input type='checkbox' name='ontime' id='" + onTimeCheckID + "' onchange='checkBox(this)'>"
-     disecheckHTML = "Disengaged? <input type='checkbox' name='ontime' id='" + engageCheckID + "' onchange='checkBox(this)'>"
+     disecheckHTML = "Eengaged? <input type='checkbox' name='ontime' id='" + engageCheckID + "' onchange='checkBox(this)'>"
      document.write(ontimeHTML)
      document.write(disecheckHTML)
      document.write(diseHTML)
