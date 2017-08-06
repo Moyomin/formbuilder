@@ -16,21 +16,22 @@
   }
 
 
-  function renderNote() {
-    if (sessionStorage.check1a == 1) {
-      var text = "Client arrived to group on time and presented as "
-    } 
-    else {
-      var text = "Client arrived to group late and presented as "
+function renderNote() {
+    var data = JSON.parse(sessionStorage.checks)
+    for (var key in data) {
+      if (data[key]['onTimeCheck']) {
+        var onTimeText = "Client was on time. "
+      } else {
+        var onTimeText = "Client was not on time. "
+      }
+      if (data[key]['engageCheck']) {
+        var engageText = "Client was engaged, as evidenced by "
+      } else {
+        var engageText = "Client was not engaged, as evidenced by "
+      }
+      document.write("<br>")
+        document.write(onTimeText+engageText)
     }
-    if (sessionStorage.check2a == 1) {
-    var text2 = "disengaged as evidenced by "
-    }
-    else {
-    var text2 = ""
-    }
-    document.write("<br>")
-    document.write(text+text2)
   }
 
 function generateForms(){
