@@ -1,0 +1,64 @@
+<head>
+<script type="text/javascript" charset="utf-8"> 
+ 
+ 
+  function checkBox(checkBoxElement) {
+     var data = JSON.parse(sessionStorage.checks)
+     var fields = checkBoxElement.id.split('-')
+     form = fields[1]
+     check = fields[0]
+     if (checkBoxElement.checked) {
+       data[form][check] = 1
+     } else {
+       data[form][check] = 0
+     }
+     sessionStorage.checks = JSON.stringify(data)
+  }
+
+
+  function renderNote() {
+    if (sessionStorage.check1a == 1) {
+      var text = "Client arrived to group on time and presented as "
+    } 
+    else {
+      var text = "Client arrived to group late and presented as "
+    }
+    if (sessionStorage.check2a == 1) {
+    var text2 = "disengaged as evidenced by "
+    }
+    else {
+    var text2 = ""
+    }
+    document.write("<br>")
+    document.write(text+text2)
+  }
+
+function generateForms(){
+   number = Number(document.getElementById('number').value) 
+   CHECKS = {}
+   for (i = 0; i < number; i++) {
+     var formName = "form" + i
+     CHECKS[formName] = { "onTimeCheck": 0, "engageCheck": 0} 
+   }
+   for (var key in CHECKS) {
+     var engageEvidence = "engageEvidence-" + key
+     var onTimeCheckID = "onTimeCheck-" + key
+     var engageCheckID = "engageCheck-" + key
+     diseHTML = "<input id='" + engageEvidence + "' name=" + engageEvidence + ">"
+     ontimeHTML = "On time? <input type='checkbox' name='ontime' id='" + onTimeCheckID + "' onchange='checkBox(this)'>"
+     disecheckHTML = "Disengaged? <input type='checkbox' name='ontime' id='" + engageCheckID + "' onchange='checkBox(this)'>"
+     document.write(ontimeHTML)
+     document.write(disecheckHTML)
+     document.write(diseHTML)
+     document.write("<br>")
+   }
+   sessionStorage.checks = JSON.stringify(CHECKS)
+   document.write("<button type='button' onclick='renderNote()'>Render</button>")
+}
+</script>
+</head>
+<body>
+<h2>How Many Clients?</h2>
+<input id="number" type="text" >
+<button type="button" onclick="generateForms()">Render</button>
+</body>
