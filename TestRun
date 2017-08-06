@@ -1,5 +1,38 @@
+  
 <head>
 <script type="text/javascript" charset="utf-8"> 
+ 
+ 
+ function checkBox(checkBoxElement) {
+     if (sessionStorage.data) {
+       data = sessionStorage.data
+     } else {
+       data = 0
+     } 
+     if (checkBoxElement.checked) {
+       data = 1
+     } else {
+       data = 0
+     }
+     sessionStorage.data = data
+     document.write(data)
+  }
+
+
+  function renderNote() {
+     if (sessionStorage.data) {
+       data = sessionStorage.data
+       }
+    if (data == 1) {
+      var text = "Resident did that thing as evidenced by"
+    } else {
+      var text = "Resident did NOT do that thing as evidenced by"
+    }
+    //outputDiv = document.getElementById("output")
+    //outputDiv.innerHTML = text
+    document.write(text)
+  }
+
 function generateForms(){
    number = Number(document.getElementById('number').value)
      CHECK1 = ("check1", "check2")
@@ -8,13 +41,13 @@ function generateForms(){
     {"id": "lol2", "label": "lol2"}
   ]
   for (i = 0; i < TEXT1.length; i++) {
-    formHTML = "<input id='" + TEXT1[i].id + "name='" + TEXT1[i].label + ">"
-   checkHTML = "<input type='checkbox' id=" +   CHECK1[i] + ">"
+    formHTML = "<input id='" + TEXT1[i].id + "' name=" + TEXT1[i].label + ">"
+   checkHTML = "<input type='checkbox' name='ontime' id='" + CHECK1[i] + "' onchange='checkBox(this)'>"
       document.write(checkHTML)
       document.write(formHTML)
       document.write("<br>")
   }
-
+ document.write("<button type='button' onclick='renderNote()'>Render</button>")
 }
 </script>
 </head>
@@ -23,3 +56,7 @@ function generateForms(){
 <input id="number" type="text" >
 <button type="button" onclick="generateForms()">Render</button>
 </body>
+
+
+
+
