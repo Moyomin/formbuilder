@@ -1,4 +1,18 @@
 <head>
+
+<!-- load jquery for bootstrap -->
+<script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<!-- main logic of the app -->
 <script type="text/javascript" charset="utf-8"> 
  
  
@@ -18,6 +32,8 @@
 
 function renderNote() {
     var data = JSON.parse(sessionStorage.checks)
+    var output = document.getElementById('output-container')
+    output.innerHTML = ''
     for (var key in data) {
       if (data[key]['onTimeCheck']) {
         var onTimeText = "Client was on time. "
@@ -31,37 +47,83 @@ function renderNote() {
       }
       var engageEvidence = "engageEvidence-" + key
       var engageEvidenceText = document.getElementById(engageEvidence).value
-      document.write("<br>")
-        document.write(onTimeText+engageText+engageEvidenceText)
+      output.innerHTML += onTimeText + engageText + engageEvidenceText + "<br>"
     }
   }
 
 function generateForms(){
-   number = Number(document.getElementById('number').value) 
+   // define number of forms to create
+   var number = Number(document.getElementById('number').value) 
+
+   // instantiate object representing the innter container
+   var body = document.getElementById('inner-container')
+ 
+   // instantiate object representing the core data for the app
    CHECKS = {}
+
+   // populate checks object with defualt data for each form
    for (i = 0; i < number; i++) {
      var formName = "form" + i
      CHECKS[formName] = { "onTimeCheck": 0, "engageCheck": 0} 
    }
+
+   // Clear out initial html and reset style
+   body.innerHTML = ''
+   body.style = {"margin": "0 auto"}
+
+   // iterate through data to create forms
    for (var key in CHECKS) {
-     var engageEvidence = "engageEvidence-" + key
+
+     // create form element that will contain the columns for form
+     var formElement = document.createElement('div')
+     formElement.className = 'row'
+     formElement.style.borderBottom = 'thin solid grey'
+     formElement.style.padding = '10px'
+     formElement.id = key
+
+     // create column for ontime checkbox
+     var ontimeHTML = document.createElement('div')
      var onTimeCheckID = "onTimeCheck-" + key
+     ontimeHTML.innerHTML = "On time? <input type='checkbox' name='ontime' id='" + onTimeCheckID + "' onchange='checkBox(this)'>"
+     ontimeHTML.className = 'col-md-4' 
+     formElement.appendChild(ontimeHTML)
+
+     //  create column for engaged checkbox
+     var disecheckHTML = document.createElement('div')
      var engageCheckID = "engageCheck-" + key
-     diseHTML = "<input id='" + engageEvidence + "' name=" + engageEvidence + ">"
-     ontimeHTML = "On time? <input type='checkbox' name='ontime' id='" + onTimeCheckID + "' onchange='checkBox(this)'>"
-     disecheckHTML = "Eengaged? <input type='checkbox' name='ontime' id='" + engageCheckID + "' onchange='checkBox(this)'>"
-     document.write(ontimeHTML)
-     document.write(disecheckHTML)
-     document.write(diseHTML)
-     document.write("<br>")
+     disecheckHTML.innerHTML = "Engaged? <input type='checkbox' name='ontime' id='" + engageCheckID + "' onchange='checkBox(this)'>"
+     disecheckHTML.className = 'col-md-4'
+     formElement.appendChild(disecheckHTML)
+
+     // create column for engaged evidence 
+     var diseHTML = document.createElement('div')
+     var engageEvidence = "engageEvidence-" + key
+     diseHTML.innerHTML = "<input id='" + engageEvidence + "' name=" + engageEvidence + ">"
+     diseHTML.className = 'col-md-4'
+     formElement.appendChild(diseHTML)
+
+     // add form element to the inner container
+     body.appendChild(formElement)
    }
+   
+   // save data to session storage as json string
    sessionStorage.checks = JSON.stringify(CHECKS)
-   document.write("<button type='button' onclick='renderNote()'>Render</button>")
+   
+   // add render button and create output area
+   mainContainer = document.getElementById('main-container')
+   outputContainer =  document.createElement('div')
+   outputContainer.id = 'output-container'
+   outputContainer.innerHTML = "<button type='button' onclick='renderNote()'>Render</button>" 
+   mainContainer.appendChild(outputContainer)
 }
 </script>
 </head>
 <body>
+<div id='main-container' class="panel panel-default" style="margin: 0 auto; width: 75%; height: 75%; text-align: center;">
+<div id='inner-container' class="panel-body" style="margin: 0 auto; position: relative; top: 25%; bottom: 25%">
 <h2>How Many Clients?</h2>
 <input id="number" type="text" >
-<button type="button" onclick="generateForms()">Render</button>
+<button type="button" onclick="generateForms()">Submit</button>
+</div>
+</div>
 </body>
