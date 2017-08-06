@@ -1,0 +1,25 @@
+<head>
+<script type="text/javascript" charset="utf-8"> 
+function generateForms(){
+   number = Number(document.getElementById('number').value)
+     CHECK1 = ("check1", "check2")
+     TEXT1 = [
+    {"id": "lol", "label": "lol"},
+    {"id": "lol2", "label": "lol2"}
+  ]
+  for (i = 0; i < TEXT1.length; i++) {
+    formHTML = "<input id='" + TEXT1[i].id + "name='" + TEXT1[i].label + ">"
+   checkHTML = "<input type='checkbox' id=" +   CHECK1[i] + ">"
+      document.write(checkHTML)
+      document.write(formHTML)
+      document.write("<br>")
+  }
+
+}
+</script>
+</head>
+<body>
+<h2>How Many Clients?</h2>
+<input id="number" type="text" >
+<button type="button" onclick="generateForms()">Render</button>
+</body>
